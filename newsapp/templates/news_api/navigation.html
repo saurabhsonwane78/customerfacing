@@ -1,0 +1,43 @@
+{% load static %}
+   <div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5">
+        <a href="{% url 'home' %}" class="navbar-brand d-block ">
+            <h1 class="m-0 display-4 text-uppercase text-primary">News<span class="text-white font-weight-normal">app</span></h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+            <div class="navbar-nav mr-auto py-0">
+                <div class="nav-item dropdown">
+                    <a href="{% url 'login' %}" class="nav-link " data-toggle="dropdown">User Login</a>
+                </div>
+                <a href="{% url 'recentsearch' %}" class="nav-item nav-link">Recent Search</a>
+                <a href="{% url 'login' %}" class="nav-link " data-toggle="dropdown">Admin</a>
+            </div>
+            <form action="" method="get" id="searchkeywordform">
+            <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 390px;">
+                    <input type="text" name="sort" id="sort" class="form-control border-0" placeholder="Search Keyword" style="display: none;"> 
+                    <input type="text" name="searchkeyword" id="searchkeyword" value="{{searchkeyword}}" class="form-control border-0" placeholder="Search Keyword">
+                <div class="input-group-append" style="margin-right: 12px;">
+                    <button type="submit" form="searchkeywordform" value="Search" class="input-group-text bg-primary text-dark border-0 px-3"><i
+                            class="fa fa-search"></i></button>
+                </div>
+                <button class="bg-primary text-dark border-0 px-3" type="submit" form="searchkeywordform" value="Search">Refresh</button>
+            </div>
+            </form>
+            {% if user.is_authenticated %}
+            <div class="dropdown">
+                <button class="dropbtn">{{request.user}}
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="{% url 'recentsearch' %}">Recent Search</a>
+                  <a href="{% url 'logout' %}">Logout</a>
+                </div>
+              </div>
+            {% endif %}
+        </div>
+    </nav>
+</div>
+<!-- Navbar End -->

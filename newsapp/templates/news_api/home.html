@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <title>News APP</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="{% static '/js/main.js' %}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    {% include "./navigation.html" %}
+    <div class="container">
+        <table class="ml-auto sortarticles">
+            <tr>
+                <div class="category">
+                    <a href="{% url 'home' %}?category=Business"><span class="glyphicon glyphicon-briefcase"></span>Business</a>
+                    <a href="{% url 'home' %}?category=Entertainment"><span class="glyphicon glyphicon-film"></span>Entertainment</a>
+                    <a href="{% url 'home' %}?category=health"><span class="glyphicon glyphicon-heart"></span>Health</a>
+                    <a href="{% url 'home' %}?category=Science"><span class="glyphicon glyphicon-education"></span>Science</a>
+                    <a href="{% url 'home' %}?category=Sports"><span class="glyphicon glyphicon-flag"></span>Sports</a>
+                    <a href="{% url 'home' %}?category=technology"><span class="glyphicon glyphicon-phone"></span>Technology</a>               
+                </div>
+                <td>&nbsp;</td>
+                <td>Sort &nbsp;</td>
+                <td>
+                    
+                    <select  width="300" style="width: 300px" onchange="sortarticles(this)">
+                        <option value="relevancy" {% if sorting == 'relevancy' %} selected {% endif %}>Relevance</option>
+                        <option id="date" value="publishedAt" {% if sorting == 'publishedAt' %} selected {% endif %}>Date published </option>
+                    </select>
+                </td>
+                <td>&nbsp;</td>
+                </tr>
+            <tr>
+        </table>
+        <div class="row articlescontainer">
+            {% for i in articles %}
+            <div class="col-md-4">
+                    <div class="card rounded shadow-lg m-2" style="width: 25rem;">
+                        <img src="{{ i.urlToImage }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <p class="card-text">{{ i.author }}</p>
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        <p class="card-title">{{ i.source.name }}</p>
+                        <p class="card-text">{{ i.description | truncatewords:100 }}</p>
+                        <hr>
+                        <small>date: {{ i.publishedAt }}</small>
+                        <a href="{{ i.url }}" target="_blank" class="btn btn-success m-1">See News</a>
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
