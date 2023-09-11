@@ -1,4 +1,4 @@
-# customerfacing
+# News App
 1) To run project
    - install requirements.txt
 
